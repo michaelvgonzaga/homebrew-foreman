@@ -1,9 +1,9 @@
 class ForemanAi < Formula
   desc "A Claude Code framework for structured, verified AI-assisted development"
   homepage "https://github.com/michaelvgonzaga/foreman"
-  url "https://github.com/michaelvgonzaga/foreman/archive/refs/tags/v1.7.0.tar.gz"
-  sha256 "f59207ea49cd53ae57984b1730920f5a19fecb4164bec215c18b8c517c460d5c"
-  version "1.7.0"
+  url "https://github.com/michaelvgonzaga/foreman/archive/refs/tags/v1.8.0.tar.gz"
+  sha256 "3a546002d00c0e4577d1abc2c372863c5aba3286cf7a63d00814f3aaa75411c0"
+  version "1.8.0"
 
   head "https://github.com/michaelvgonzaga/foreman.git", branch: "main"
 
