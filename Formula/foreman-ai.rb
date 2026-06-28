@@ -41,6 +41,14 @@ class ForemanAi < Formula
         echo ""
       fi
 
+      if ! command -v foreman-tools >/dev/null 2>&1; then
+        echo ""
+        echo "  NOTE: foreman-tools is not installed."
+        echo "  Install it for faster sessions (cuts session-start token cost ~70%):"
+        echo "  Run: brew install michaelvgonzaga/foreman/foreman-tools"
+        echo ""
+      fi
+
       DEST="$PWD/foreman"
 
       if [ ! -d "$DEST" ]; then
