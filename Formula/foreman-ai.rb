@@ -8,6 +8,7 @@ class ForemanAi < Formula
   head "https://github.com/michaelvgonzaga/foreman.git", branch: "main"
 
   depends_on "git"
+  depends_on "michaelvgonzaga/foreman/foreman-tools"
 
   def install
     prefix.install Dir["*"] + Dir[".*"].reject { |f| f == "." || f == ".." }
