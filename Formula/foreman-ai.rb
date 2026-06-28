@@ -1,4 +1,4 @@
-class Foreman < Formula
+class ForemanAi < Formula
   desc "A Claude Code framework for structured, verified AI-assisted development"
   homepage "https://github.com/michaelvgonzaga/foreman"
   url "https://github.com/michaelvgonzaga/foreman/archive/refs/tags/v1.1.0.tar.gz"
@@ -12,7 +12,7 @@ class Foreman < Formula
   def install
     prefix.install Dir["*", ".*"]
 
-    (bin/"foreman").write <<~EOS
+    (bin/"foreman-ai").write <<~EOS
       #!/bin/bash
       set -e
 
@@ -43,14 +43,14 @@ class Foreman < Formula
       exec claude "$DEST"
     EOS
 
-    chmod 0755, bin/"foreman"
+    chmod 0755, bin/"foreman-ai"
   end
 
   def caveats
     <<~EOS
 
       To open Foreman:
-        foreman
+        foreman-ai
 
       First-time setup (inside Claude Code):
         /setup        — install plugins
@@ -61,6 +61,6 @@ class Foreman < Formula
 
   test do
     assert_predicate prefix/"README.md", :exist?
-    assert_predicate bin/"foreman", :executable?
+    assert_predicate bin/"foreman-ai", :executable?
   end
 end
