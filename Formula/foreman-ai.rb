@@ -16,7 +16,7 @@ class ForemanAi < Formula
       #!/bin/bash
       set -e
 
-      if ! command -v claude &>/dev/null; then
+      if ! command -v claude >/dev/null 2>&1; then
         echo ""
         echo "  ERROR: Claude Code is not installed."
         echo "  Install it from: https://claude.ai/code"
@@ -24,12 +24,20 @@ class ForemanAi < Formula
         exit 1
       fi
 
-      if ! command -v git &>/dev/null; then
+      if ! command -v git >/dev/null 2>&1; then
         echo ""
         echo "  ERROR: Git is not installed."
         echo "  Run: brew install git"
         echo ""
         exit 1
+      fi
+
+      if ! command -v gh >/dev/null 2>&1; then
+        echo ""
+        echo "  NOTE: GitHub CLI (gh) is not installed."
+        echo "  Foreman needs it for repo creation, authentication, and pushing to GitHub."
+        echo "  Run: brew install gh"
+        echo ""
       fi
 
       DEST="$PWD/foreman"
@@ -42,6 +50,7 @@ class ForemanAi < Formula
           echo "  (git clone failed — using a local copy; self-update won't be available)"
           cp -r "#{prefix}" "$DEST"
         fi
+        touch "$DEST/.first-run"
         echo "Done."
       fi
 
@@ -57,9 +66,8 @@ class ForemanAi < Formula
       To open Foreman:
         foreman-ai
 
-      First-time setup (inside Claude Code):
-        /setup        — install plugins
-        /new-project  — start your first project
+      On first run, Foreman will walk you through setup automatically (/first-run).
+      It checks dependencies, sets up automation, and gets you ready to build.
 
     EOS
   end
