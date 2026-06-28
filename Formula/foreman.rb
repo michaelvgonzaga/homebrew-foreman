@@ -1,0 +1,54 @@
+class Foreman < Formula
+  desc "A Claude Code framework for structured, verified AI-assisted development"
+  homepage "https://github.com/michaelvgonzaga/foreman"
+  head "https://github.com/michaelvgonzaga/foreman.git", branch: "main"
+
+  depends_on "git"
+
+  def install
+    prefix.install Dir["*", ".*"]
+
+    (bin/"foreman").write <<~EOS
+      #!/bin/bash
+      set -e
+
+      if ! command -v claude &>/dev/null; then
+        echo ""
+        echo "  ERROR: Claude Code is not installed."
+        echo "  Install it from: https://claude.ai/code"
+        echo ""
+        exit 1
+      fi
+
+      if ! command -v git &>/dev/null; then
+        echo ""
+        echo "  ERROR: Git is not installed."
+        echo "  Run: brew install git"
+        echo ""
+        exit 1
+      fi
+
+      exec claude "#{prefix}"
+    EOS
+
+    chmod 0755, bin/"foreman"
+  end
+
+  def caveats
+    <<~EOS
+
+      To open Foreman:
+        foreman
+
+      First-time setup (inside Claude Code):
+        /setup        — install plugins
+        /new-project  — start your first project
+
+    EOS
+  end
+
+  test do
+    assert_predicate prefix/"README.md", :exist?
+    assert_predicate bin/"foreman", :executable?
+  end
+end
