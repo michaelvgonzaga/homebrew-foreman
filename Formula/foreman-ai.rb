@@ -4,6 +4,7 @@ class ForemanAi < Formula
   url "https://github.com/michaelvgonzaga/foreman/archive/refs/tags/v1.3.0.tar.gz"
   sha256 "647cc7ed3ba3eaebacd6bd80f8d9215e8276ad7588466b91ffd9fa2572ad9e79"
   version "1.3.0"
+  revision 1
 
   head "https://github.com/michaelvgonzaga/foreman.git", branch: "main"
 
@@ -36,7 +37,12 @@ class ForemanAi < Formula
 
       if [ ! -d "$DEST" ]; then
         echo "Initializing Foreman in $DEST ..."
-        cp -r "#{prefix}" "$DEST"
+        # Clone so the workspace tracks origin/main and the self-update skill works.
+        # Fall back to a local copy if the clone fails (offline); self-update is then unavailable.
+        if ! git clone --quiet https://github.com/michaelvgonzaga/foreman.git "$DEST"; then
+          echo "  (git clone failed — using a local copy; self-update won't be available)"
+          cp -r "#{prefix}" "$DEST"
+        fi
         echo "Done."
       fi
 
