@@ -10,7 +10,7 @@ class ForemanAi < Formula
   depends_on "git"
 
   def install
-    prefix.install Dir["*", ".*"]
+    prefix.install Dir["*"] + Dir[".*"].reject { |f| f == "." || f == ".." }
 
     (bin/"foreman-ai").write <<~EOS
       #!/bin/bash
