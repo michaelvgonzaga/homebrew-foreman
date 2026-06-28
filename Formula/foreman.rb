@@ -28,7 +28,15 @@ class Foreman < Formula
         exit 1
       fi
 
-      exec claude "#{prefix}"
+      DEST="$PWD/foreman"
+
+      if [ ! -d "$DEST" ]; then
+        echo "Initializing Foreman in $DEST ..."
+        cp -r "#{prefix}" "$DEST"
+        echo "Done."
+      fi
+
+      exec claude "$DEST"
     EOS
 
     chmod 0755, bin/"foreman"
