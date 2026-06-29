@@ -17,36 +17,46 @@ class ForemanAi < Formula
       #!/bin/bash
       set -e
 
-      if ! command -v claude >/dev/null 2>&1; then
-        echo ""
-        echo "  ERROR: Claude Code is not installed."
-        echo "  Install it from: https://claude.ai/code"
-        echo ""
-        exit 1
-      fi
-
-      if ! command -v git >/dev/null 2>&1; then
-        echo ""
-        echo "  ERROR: Git is not installed."
-        echo "  Run: brew install git"
-        echo ""
-        exit 1
-      fi
-
-      if ! command -v gh >/dev/null 2>&1; then
-        echo ""
-        echo "  NOTE: GitHub CLI (gh) is not installed."
-        echo "  Foreman needs it for repo creation, authentication, and pushing to GitHub."
-        echo "  Run: brew install gh"
-        echo ""
-      fi
-
-      if ! command -v foreman-tools >/dev/null 2>&1; then
+      if command -v foreman-tools >/dev/null 2>&1; then
+        _doctor="$(foreman-tools doctor 2>/dev/null)"
+        if [ "$(echo "$_doctor" | grep '"claude": false')" != "" ]; then
+          echo ""
+          echo "  ERROR: Claude Code is not installed."
+          echo "  Install it from: https://claude.ai/code"
+          echo ""
+          exit 1
+        fi
+        if [ "$(echo "$_doctor" | grep '"git": false')" != "" ]; then
+          echo ""
+          echo "  ERROR: Git is not installed."
+          echo "  Run: brew install git"
+          echo ""
+          exit 1
+        fi
+        if [ "$(echo "$_doctor" | grep '"gh": false')" != "" ]; then
+          echo ""
+          echo "  NOTE: GitHub CLI (gh) is not installed."
+          echo "  Foreman needs it for repo creation, authentication, and pushing to GitHub."
+          echo "  Run: brew install gh"
+          echo ""
+        fi
+      else
         echo ""
         echo "  NOTE: foreman-tools is not installed."
         echo "  Install it for faster sessions (cuts session-start token cost ~70%):"
         echo "  Run: brew install michaelvgonzaga/foreman/foreman-tools"
         echo ""
+        if ! command -v claude >/dev/null 2>&1; then
+          echo "  ERROR: Claude Code is not installed. Install it from: https://claude.ai/code"
+          exit 1
+        fi
+        if ! command -v git >/dev/null 2>&1; then
+          echo "  ERROR: Git is not installed. Run: brew install git"
+          exit 1
+        fi
+        if ! command -v gh >/dev/null 2>&1; then
+          echo "  NOTE: GitHub CLI (gh) not installed. Run: brew install gh"
+        fi
       fi
 
       DEST="$PWD/foreman"
