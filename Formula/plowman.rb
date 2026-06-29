@@ -1,9 +1,9 @@
 class Plowman < Formula
   desc "Turn codebases, SQL dumps, and logs into structured context for AI assistants"
   homepage "https://github.com/michaelvgonzaga/plowman"
-  url "https://github.com/michaelvgonzaga/plowman/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "8a3117b7a0cd237e0debde6627eb4af96d924f0f039a186e4e21cd1d42d6b720"
-  version "1.0.0"
+  url "https://github.com/michaelvgonzaga/plowman/archive/refs/tags/v1.0.1.tar.gz"
+  sha256 "41e0b565467efc44a31a5fd782b8f11b7fd4248af5ee6da59ede8d6503e519fd"
+  version "1.0.1"
 
   head "https://github.com/michaelvgonzaga/plowman.git", branch: "main"
 
