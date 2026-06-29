@@ -1,9 +1,9 @@
 class ForemanTools < Formula
   desc "Native CLI binary for the Foreman framework — offloads data-gathering from Claude's token budget"
   homepage "https://github.com/michaelvgonzaga/foreman-tools"
-  url "https://github.com/michaelvgonzaga/foreman-tools/releases/download/v0.8.0/foreman-tools-v0.8.0-macos.tar.gz"
-  sha256 "b5f71743cb8bc753f1786b1c02527fc17bbbdbc24cd8cdedede613c133b51c37"
-  version "0.8.0"
+  url "https://github.com/michaelvgonzaga/foreman-tools/releases/download/v0.9.0/foreman-tools-v0.9.0-macos.tar.gz"
+  sha256 "95c1271319b030f8f4e8949eeb9ec24f592033674fdcb032de9512d629bab68d"
+  version "0.9.0"
 
   def install
     bin.install "foreman-tools"
