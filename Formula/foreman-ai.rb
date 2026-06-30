@@ -73,7 +73,7 @@ class ForemanAi < Formula
         echo "Done."
       fi
 
-      exec claude "$DEST"
+      cd "$DEST" && exec claude
     EOS
 
     chmod 0755, bin/"foreman-ai"
