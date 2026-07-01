@@ -1,9 +1,9 @@
 class OrmanTools < Formula
   desc "Native CLI binary for the 4ORMan framework"
   homepage "https://github.com/michaelvgonzaga/4orman-tools"
-  url "https://github.com/michaelvgonzaga/4orman-tools/archive/refs/tags/v0.64.0.tar.gz"
-  version "0.64.0"
-  sha256 "045a6b5524e5b46f435c5bea4d216f361b5572103e54747a4dfa82199af06a66"
+  url "https://github.com/michaelvgonzaga/4orman-tools/archive/refs/tags/v0.65.0.tar.gz"
+  version "0.65.0"
+  sha256 "7cf07910330b317f11dcf0a025b2e2a69bb842fb62ea5286f6b1502835fcf182"
 
   depends_on "zig" => :build
 
