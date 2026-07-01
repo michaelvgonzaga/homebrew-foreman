@@ -12,7 +12,6 @@ class OrmanAi < Formula
 
   def install
     prefix.install Dir["*"] + Dir[".*"].reject { |f| [".", ".."].include?(f) }
-    bin.install "bin/4orman-ai"
   end
 
   def caveats
