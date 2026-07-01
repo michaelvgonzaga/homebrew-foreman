@@ -5,8 +5,11 @@ class ForemanTools < Formula
   sha256 "d23d165f49e75bb92417a196a8035fa26b9ee05eae51dd81f31c741d6ec94d32"
   version "0.60.0"
 
+  depends_on "zig" => :build
+
   def install
-    bin.install "foreman-tools"
+    system "zig", "build", "-Doptimize=ReleaseSafe"
+    bin.install "zig-out/bin/foreman-tools"
   end
 
   test do
