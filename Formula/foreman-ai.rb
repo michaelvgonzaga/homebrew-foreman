@@ -59,12 +59,31 @@ class ForemanAi < Formula
         fi
       fi
 
+      # Walk up the directory tree to find an existing foreman workspace.
+      # Prevents nested foreman/foreman or project/foreman when run from inside the workspace.
+      _find_foreman_root() {
+        local dir="$PWD"
+        while [ "$dir" != "/" ]; do
+          if [ -f "$dir/CLAUDE.md" ] && [ -d "$dir/.claude" ]; then
+            echo "$dir"
+            return 0
+          fi
+          dir="$(dirname "$dir")"
+        done
+        return 1
+      }
+
+      FOREMAN_ROOT=$(_find_foreman_root 2>/dev/null || true)
+      if [ -n "$FOREMAN_ROOT" ]; then
+        echo "  Found existing Foreman workspace at: $FOREMAN_ROOT"
+        cd "$FOREMAN_ROOT" && exec claude
+      fi
+
+      # Not inside a workspace — initialize one in the current directory.
       DEST="$PWD/foreman"
 
       if [ ! -d "$DEST" ]; then
         echo "Initializing Foreman in $DEST ..."
-        # Clone so the workspace tracks origin/main and the self-update skill works.
-        # Fall back to a local copy if the clone fails (offline); self-update is then unavailable.
         if ! git clone --quiet https://github.com/michaelvgonzaga/foreman.git "$DEST"; then
           echo "  (git clone failed — using a local copy; self-update won't be available)"
           cp -r "#{prefix}" "$DEST"
